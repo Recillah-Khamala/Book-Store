@@ -23,12 +23,12 @@ const Books = () => {
   ];
 
   return (
-    <>
+    <div className="Container">
       {bookSamples.map((book) => (
         <Book key={book.id} title={book.title} author={book.author} />
       ))}
       <Form />
-    </>
+    </div>
   )
 };
 
