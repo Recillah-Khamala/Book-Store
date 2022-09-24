@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Book from './Book';
 import Form from './Form';
 
-
 const Books = () => {
   const bookSamples = [
     {
@@ -29,7 +28,7 @@ const Books = () => {
       ))}
       <Form />
     </div>
-  )
+  );
 };
 
 export default Books;

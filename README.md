@@ -2,7 +2,7 @@
 
 # Book Store
 
-> This is an Educational project aimed at learning professional use of React/React-Redux. It features books management; Adding, Editing, Completing and Removing books from the system using Redux actions and reducers. This app is MIT Licensed
+> This is a project aimed at learning professional use of React/React-Redux. It features books management practices l.e Adding, Editing, Completing and Removing books from the system using Redux actions and reducers. 
 
 
 ## Built With
@@ -21,7 +21,7 @@
 ### To have a copy of this project running on your local machine, follow these commands:
 
 - Clone this repo to your local machine
-  -  `git clone git@github.com:aceDavon/book-store.git`
+  -  `git@github.com:Rn486/Book-Store.git`
   - Open the folder "Math-magician and run `npm install` to install all necesary scripts,
   - Run from your termminal, `npm start` to open the project in your browser.
 
@@ -56,11 +56,11 @@ To get a local copy up and running follow these simple example steps.
 
 ### Run tests
 
-> coming soon :smile:
+> coming soon :thumbsup:
 
 ### Deployment
 
-> coming soon :smile:
+> coming soon :thumbsup:
 
 
 

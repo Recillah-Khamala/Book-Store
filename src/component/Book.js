@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { TbMinusVertical } from 'react-icons/tb';
 
 import PropTypes from 'prop-types';
@@ -15,21 +15,21 @@ function Book(props) {
             <h2 className="book-title">{ title }</h2>
             <h6 className="book-author">{ author }</h6>
             <div className="action-buttons">
-              <button 
+              <button
                 className="button-outline"
                 type="button"
               >
                 Comments
               </button>
-              <div>< TbMinusVertical /></div>
-              <button 
+              <div><TbMinusVertical /></div>
+              <button
                 className="button-outline"
                 type="button"
               >
                 Remove
               </button>
               <div><TbMinusVertical /></div>
-              <button 
+              <button
                 className="button-outline"
                 type="button"
               >
@@ -39,7 +39,7 @@ function Book(props) {
           </div>
           <div className="progress-container">
             <div className="circular-progress-container">
-              <div className="circular-progress"></div>
+              <div className="circular-progress" />
             </div>
             <div className="progress-stat">
               <div>
@@ -54,14 +54,14 @@ function Book(props) {
                 <p className="current-chapter">Chapter 17</p>
               </div>
               <div>
-              <button 
-                type="button" 
-                className="primary-button"
-              >
-                UPDATE PROGRESS
-              </button>
+                <button
+                  type="button"
+                  className="primary-button"
+                >
+                  UPDATE PROGRESS
+                </button>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
