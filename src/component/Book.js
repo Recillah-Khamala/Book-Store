@@ -4,14 +4,14 @@ import { TbMinusVertical } from 'react-icons/tb';
 import PropTypes from 'prop-types';
 
 function Book(props) {
-  const { genre, title, author } = props;
+  const { title, author } = props;
 
   return (
     <>
       <div className="book">
         <div className="book-content">
           <div className="book-info">
-            <h4 className="book-category">{ genre }</h4>
+            <h4 className="book-category">Genre</h4>
             <h2 className="book-title">{ title }</h2>
             <h6 className="book-author">{ author }</h6>
             <div className="action-buttons">
