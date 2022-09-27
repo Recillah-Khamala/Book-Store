@@ -7,6 +7,6 @@ const checkBookStatus = () => ({ type: CHECK_STATUS })
 const chechReducer = (state = [], action){
   switch(action.type){
     case CHECK_STATUS:
-      return 
+      return "Under construction"
   }
 }
