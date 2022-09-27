@@ -4,7 +4,7 @@ const initialState = [];
 
 const checkBookStatus = () => ({ type: CHECK_STATUS })
 
-const checkReducer = (state = [], action){
+const checkReducer = (state = [], action) => {
   switch(action.type){
     case CHECK_STATUS:
       return "Under construction";
