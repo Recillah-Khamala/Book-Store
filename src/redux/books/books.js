@@ -12,17 +12,17 @@ const newBook = (id, title, author) => ({
 const removeBook = (id) => ({
   type: 'REMOVE_BOOK',
   id,
-})
+});
 
 const bookReducer = (state = initialState, action) => {
-  switch (action.type){
+  switch (action.type) {
     case ADD_BOOK:
-      return[...state, action.payload]
+      return [...state, action.payload];
     case REMOVE_BOOK:
-      return state.filter((book) => book.id !==action.payload)
+      return state.filter((book) => book.id !== action.payload);
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default { newBook, removeBook, bookReducer } 
+export default { newBook, removeBook, bookReducer };
