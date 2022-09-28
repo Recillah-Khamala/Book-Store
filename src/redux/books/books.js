@@ -5,7 +5,7 @@ const initialState = [];
 
 const newBook = (book) => ({
   type: 'ADD_BOOK',
-  book,
+  payload: book,
 });
 
 const removeBook = (id) => ({
@@ -16,9 +16,9 @@ const removeBook = (id) => ({
 const bookReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_BOOK:
-      return [...state, action.book];
+      return [...state, action.payload];
     case REMOVE_BOOK:
-      return state.filter((book) => book.id !== action.id);
+      return state.filter((book) => book.id !== action.payload);
     default:
       return state;
   }
