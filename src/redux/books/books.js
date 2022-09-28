@@ -1,11 +1,25 @@
+import {v4 as uuidv4} from 'uuid';
+
+
 const ADD_BOOK = 'redux/books/book/ADD_BOOK';
 const REMOVE_BOOK = 'redux/books/book/REMOVE_BOOK';
 
-const initialState = [];
+const initialState = [
+  {
+    id: uuidv4(),
+    title: 'The Smart parent',
+    aythor: 'Nancy Van Pelt',
+  },
+  {
+    id: uuidv4(),
+    title: 'Choose Your Hard',
+    aythor: 'Recillah Khamala',
+  },
+];
 
-const newBook = (book) => ({
+const newBook = (id, title, author) => ({
   type: 'ADD_BOOK',
-  payload: book,
+  payload: { id, title, author },
 });
 
 const removeBook = (id) => ({
