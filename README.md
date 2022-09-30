@@ -22,7 +22,7 @@
 
 - Clone this repo to your local machine
   -  `git@github.com:Rn486/Book-Store.git`
-  - Open the folder "Math-magician and run `npm install` to install all necesary scripts,
+  - Open the folder "Book-Store" and run `npm install` to install all necesary scripts,
   - Run from your termminal, `npm start` to open the project in your browser.
 
 **This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).**
@@ -44,9 +44,9 @@ To get a local copy up and running follow these simple example steps.
 
 **Run from your terminal:**
 
-- `npx create-react-app todo-list-react`
+- `npx create-react-app`
 
-**cd into math-magician folder, then run from your terminal:**
+**cd into Book-Store folder, then run from your terminal:**
 
 - `npm start`
 
