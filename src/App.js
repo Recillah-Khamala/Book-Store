@@ -1,16 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import './App.css';
 import Navigation from './component/Navigation';
-import Books from './component/Books';
-import Categories from './component/Categories';
 
 const App = () => (
-  <div className="App">
+  <div className="bg w-11/12 lg:w-10/12 mx-auto my-10 shadow shadow-gray-400">
     <Navigation />
-    <Routes>
-      <Route path="/" element={<Books />} />
-      <Route path="/categories" element={<Categories />} />
-    </Routes>
+    <Outlet />
   </div>
 );
 
