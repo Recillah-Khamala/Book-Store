@@ -1,19 +1,54 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { newBook } from '../redux/books/books';
+import Set from './Sticker';
 
-const Form = () => (
-  <section>
-    <h2 className="form-title">ADD NEW BOOK</h2>
-    <form className="add-form">
-      <input className="input title-input" placeholder="Book title" type="text" required />
-      <input className="input author-input" placeholder="Book author" type="text" required />
-      <select className="input category-input">
-        <option value="Action">Action</option>
-        <option value="Science Fiction">Science Fiction</option>
-        <option value="Economy">Economy</option>
-      </select>
-      <button type="submit" className="primary-button-big">ADD BOOK</button>
+const Form = () => {
+  const { values, onChange } = Set();
+  const dispatch = useDispatch();
+
+  const { title, author } = values;
+  const onSubmit = () => {
+    const plusBook = {
+      id: uuidv4,
+      title,
+      author,
+    };
+    dispatch(newBook(plusBook));
+  };
+
+  return (
+    <form
+      action="#!"
+      className="w-10/12 mx-auto border-t border-t-gray-300 pt-10"
+    >
+      <span className="text-xl font-semibold text-slate-300 block uppercase">
+        Add New Book
+      </span>
+      <input
+        type="text"
+        name="title"
+        className="w-5/12 p-2 border rounded mr-4 font-thin"
+        placeholder="Enter book title"
+        onChange={(e) => onChange(e)}
+      />
+      <input
+        type="text"
+        className="w-4/12 p-2 border rounded mr-4 font-thin"
+        placeholder="Enter book author"
+        name="author"
+        onChange={(e) => onChange(e)}
+      />
+      <button
+        type="button"
+        className="py-2 px-14 rounded-md text-sm ml-2 bg-blue-600 text-white uppercase"
+        onClick={onSubmit}
+      >
+        Add book
+      </button>
     </form>
-  </section>
-);
+  );
+};
 
 export default Form;

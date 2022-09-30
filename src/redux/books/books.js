@@ -1,41 +1,42 @@
-import {v4 as uuidv4} from 'uuid';
+import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
-
-const ADD_BOOK = 'redux/books/book/ADD_BOOK';
-const REMOVE_BOOK = 'redux/books/book/REMOVE_BOOK';
-
-const initialState = [
-  {
-    id: uuidv4(),
-    title: 'The Smart parent',
-    aythor: 'Nancy Van Pelt',
+const bookSlice = createSlice({
+  name: 'books',
+  initialState: [
+    {
+      id: uuidv4(),
+      title: 'The Smart parent',
+      aythor: 'Nancy Van Pelt',
+    },
+    {
+      id: uuidv4(),
+      title: 'Choose Your Hard',
+      aythor: 'Recillah Khamala',
+    },
+    {
+      id: uuidv4(),
+      title: 'The hunger games',
+      author: 'Suzanne Collins',
+    },
+    {
+      id: uuidv4(),
+      title: 'Dune',
+      author: 'Frank Herbert',
+    },
+    {
+      id: uuidv4(),
+      title: 'Capital in the Twenty-First Century',
+      author: 'Suzanne Collins',
+    },
+  ],
+  reducers: {
+    newBook: (initialState, action) => [...initialState, action.payload],
+    removeBook: (state, action) => state.filter((book) => book.id !== action.payload),
   },
-  {
-    id: uuidv4(),
-    title: 'Choose Your Hard',
-    aythor: 'Recillah Khamala',
-  },
-];
-
-const newBook = (id, title, author) => ({
-  type: 'ADD_BOOK',
-  payload: { id, title, author },
 });
+export const { newBook, removeBook } = bookSlice.actions;
 
-const removeBook = (id) => ({
-  type: 'REMOVE_BOOK',
-  id,
-});
+export const everyBook = (state) => state.books;
 
-const bookReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_BOOK:
-      return [...state, action.payload];
-    case REMOVE_BOOK:
-      return state.filter((book) => book.id !== action.payload);
-    default:
-      return state;
-  }
-};
-
-export default { newBook, removeBook, bookReducer };
+export default bookSlice.reducer;
