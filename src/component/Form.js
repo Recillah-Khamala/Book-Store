@@ -11,10 +11,11 @@ const Form = () => {
   const { title, author } = values;
   const onSubmit = () => {
     const plusBook = {
-      id: uuidv4,
+      id: uuidv4(),
       title,
       author,
     };
+    // console.log(plusBook);
     dispatch(newBook(plusBook));
   };
 
