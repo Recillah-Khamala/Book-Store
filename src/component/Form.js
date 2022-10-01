@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { newBook } from '../redux/books/books';
+import { addData } from '../redux/books/books';
 import Set from './Sticker';
 
 const Form = () => {
-  const { values, onChange } = Set();
+  const { values, onChange, setValue } = Set();
   const dispatch = useDispatch();
 
   const { title, author } = values;
@@ -14,9 +14,10 @@ const Form = () => {
       id: uuidv4(),
       title,
       author,
+      categoty: 'Any',
     };
-    // console.log(plusBook);
-    dispatch(newBook(plusBook));
+    dispatch(addData(plusBook));
+    setValue({ title: '', author: '' });
   };
 
   return (
@@ -30,15 +31,17 @@ const Form = () => {
       <input
         type="text"
         name="title"
+        value={title}
         className="w-5/12 p-2 border rounded mr-4 font-thin"
         placeholder="Enter book title"
         onChange={(e) => onChange(e)}
       />
       <input
         type="text"
+        name="author"
+        value={author}
         className="w-4/12 p-2 border rounded mr-4 font-thin"
         placeholder="Enter book author"
-        name="author"
         onChange={(e) => onChange(e)}
       />
       <button

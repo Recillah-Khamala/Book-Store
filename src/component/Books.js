@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getData,  removeBook } from '../redux/books/books';
+import { getData, removeBook } from '../redux/books/books';
 import Book from './Book';
 import Form from './Form';
 
 const Books = () => {
-  const { selector, display} = useSelector(state => state.books.books);
+  const selector = useSelector((state) => state.books.display);
+  console.log(selector);
   const dispatch = useDispatch();
 
   const removeHandler = (id) => {
@@ -14,13 +15,13 @@ const Books = () => {
 
   React.useEffect(() => {
     dispatch(getData());
-  }, [display, dispatch]);
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col gap-4 py-10">
       <div className="w-full">
-        {selector?.length > 0 ? (
-          selector?.map((book) => {
+        {selector.length > 0 ? (
+          selector.map((book) => {
             const {
               id, title, author, category,
             } = book;

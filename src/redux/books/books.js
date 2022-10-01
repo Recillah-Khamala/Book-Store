@@ -30,9 +30,8 @@ const bookSlice = createSlice({
   name: 'books',
   initialState: { books: [], status: 'status', display: { bookAdd: '', bookRemove: '' } },
   reducers: {
-    newBook: (state, action) => {
-      state.books =  [...state.books, action.payload]},
-    removeBook: (state, action) => (state.books.filter((book) => book.id !== action.payload)),
+    newBook: (state, action) => [...state, action.payload],
+    removeBook: (state, action) => state.books.filter((book) => book.id !== action.payload),
   },
   otherReducers: (Build) => {
     Build.addCase(getData.pending, (state) => ({
@@ -42,7 +41,6 @@ const bookSlice = createSlice({
       .addCase(getData.fulfilled, (state, { payload }) => {
         const array = [];
         const arr = Object.entries(payload);
-        console.log(arr);
         arr.map(([key, value]) => {
           const data = value.map((i) => ({ ...i, id: key }));
           return array.push(...data);
@@ -73,6 +71,6 @@ const bookSlice = createSlice({
 });
 export const { newBook, removeBook } = bookSlice.actions;
 
-// export const everyBook = (state) => state.books;
+export const everyBook = (state) => state.books;
 
 export default bookSlice.reducer;
