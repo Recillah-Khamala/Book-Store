@@ -7,6 +7,9 @@ import App from './App';
 import Books from './component/Books';
 import Categories from './component/Categories';
 import Store from './redux/configureStore';
+import { getData } from './redux/books/books';
+
+Store.dispatch(getData());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
