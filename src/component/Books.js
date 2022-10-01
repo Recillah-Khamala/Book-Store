@@ -1,17 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getData, removeBook } from '../redux/books/books';
+import { getData, removeData } from '../redux/books/books';
 import Book from './Book';
 import Form from './Form';
 
 const Books = () => {
   const { books, status } = useSelector((state) => state.books);
-  console.log(books);
   const dispatch = useDispatch();
-
-  // const removeHandler = (id) => {
-  //   dispatch(removeBook(id));
-  // };
 
   React.useEffect(() => {
     dispatch(getData());
@@ -41,7 +36,7 @@ const Books = () => {
                     </li>
                     <li className="w-2 text-gray-300">|</li>
                     <li>
-                      <button type="button" className="text-sm font-thin" onClick={() => removeHandler(id)}>
+                      <button type="button" className="text-sm font-thin" onClick={() => dispatch(removeData(id))}>
                         Remove
                       </button>
                     </li>

@@ -1,5 +1,5 @@
+/* eslint-disable consistent-return */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 export const URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/ue4FbdxlCfd3J4RtI1uF/books';
@@ -20,15 +20,13 @@ export const getData = createAsyncThunk(
 
 export const addData = createAsyncThunk(
   'books/addData',
-  async (book) => {
+  async (initialState) => {
     try {
-      const postBook = await axios.post(`${URL}`, {
-        item_id: uuidv4(),
-        title: book.title,
-        author: book.author,
-        category: book.category,
-      });
-      return postBook.data;
+      const postBook = await axios.post(`${URL}`, initialState);
+      if (postBook.data === 'Created') {
+        const newData = await axios.get(URL);
+        return newData.data;
+      }
     } catch (error) {
       return error?.response;
     }
@@ -39,8 +37,11 @@ export const removeData = createAsyncThunk(
   'books/removeData',
   async (id) => {
     try {
-      const bookRemove = await axios.delete(`${URL}/${id}`);
-      return bookRemove.data;
+      const response = await axios.delete(`${URL}/${id}`);
+      if (response.data === 'The book was deleted successfully!') {
+        const res = await axios.get(URL);
+        return res.data;
+      }
     } catch (error) {
       return error?.response;
     }
@@ -52,25 +53,24 @@ const bookSlice = createSlice({
   initialState,
   extraReducers(builder) {
     builder.addCase(getData.pending, (state) => {
-      state.status = 'pending';
+      const st = state;
+      st.status = 'pending';
     })
       .addCase(getData.fulfilled, (state, action) => {
-        state.status = 'successful';
-        state.books = action.payload;
+        const st = state;
+        st.status = 'successful';
+        st.books = action.payload;
       })
-      .addCase;
-    // [getData.fulfilled]: (state, action) => {
-    //   const books = Object.keys(action.payload).map((item) => ({
-    //     item_id: item,
-    //     ...action.payload[item][0],
-    //   }));
-    //   return books;
-    // },
-    // [getData.rejected]: (state, action) => action.error.message,
-    // [addData.fulfilled]: (state, action) => [...state, action.payload],
-    // [addData.rejected]: (state, action) => action.error.message,
-    // [removeData.fulfilled]: (state, action) => state.filter((item) => item.item_id !== action.meta.arg),
-    // [removeData.rejected]: (state, action) => action.error.message,
+      .addCase(addData.fulfilled, (state, action) => {
+        const st = state;
+        st.status = 'successful';
+        st.books = action.payload;
+      })
+      .addCase(removeData.fulfilled, (state, action) => {
+        const st = state;
+        st.status = 'successful';
+        st.books = action.payload;
+      });
   },
 });
 export const { newBook, removeBook } = bookSlice.actions;
