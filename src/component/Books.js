@@ -1,8 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getData, removeData } from '../redux/books/books';
+// import {
+//   CircularProgressbar,
+// } from 'react-circular-progressbar';
+import { removeBook } from '../redux/books/books';
 import Book from './Book';
 import Form from './Form';
+import 'react-circular-progressbar/dist/styles.css';
 
 const Books = () => {
   const { books, status } = useSelector((state) => state.books);
