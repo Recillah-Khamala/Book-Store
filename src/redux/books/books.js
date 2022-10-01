@@ -1,72 +1,76 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 export const URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/ue4FbdxlCfd3J4RtI1uF/books';
 
-export const getData = createAsyncThunk('books/getBooks', async () => axios.get(URL).then((result) => result.data));
+const initialState = { books: {}, status: 'idle' };
 
-export const addData = createAsyncThunk('books/addData', async (bookNew) => {
-  try {
-    return await axios.post(URL, bookNew).then((result) => result.data);
-  } catch (error) {
-    return error.message;
-  }
-});
+export const getData = createAsyncThunk(
+  'books/getBooks',
+  async () => {
+    try {
+      const fetchData = await axios.get(`${URL}`);
+      return fetchData.data;
+    } catch (error) {
+      return error?.response;
+    }
+  },
+);
 
-export const removeData = createAsyncThunk('books/removeData', async (id) => {
-  try {
-    return await axios(`${URL}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'content-Type': 'application/json',
-      },
-    }).then((result) => result.data);
-  } catch (error) {
-    return error.message;
-  }
-});
+export const addData = createAsyncThunk(
+  'books/addData',
+  async (book) => {
+    try {
+      const postBook = await axios.post(`${URL}`, {
+        item_id: uuidv4(),
+        title: book.title,
+        author: book.author,
+        category: book.category,
+      });
+      return postBook.data;
+    } catch (error) {
+      return error?.response;
+    }
+  },
+);
+
+export const removeData = createAsyncThunk(
+  'books/removeData',
+  async (id) => {
+    try {
+      const bookRemove = await axios.delete(`${URL}/${id}`);
+      return bookRemove.data;
+    } catch (error) {
+      return error?.response;
+    }
+  },
+);
 
 const bookSlice = createSlice({
   name: 'books',
-  initialState: { books: [], status: 'status', display: { bookAdd: '', bookRemove: '' } },
-  reducers: {
-    newBook: (state, action) => [...state, action.payload],
-    removeBook: (state, action) => state.books.filter((book) => book.id !== action.payload),
-  },
-  otherReducers: (Build) => {
-    Build.addCase(getData.pending, (state) => ({
-      ...state,
-      status: 'wait',
-    }))
-      .addCase(getData.fulfilled, (state, { payload }) => {
-        const array = [];
-        const arr = Object.entries(payload);
-        arr.map(([key, value]) => {
-          const data = value.map((i) => ({ ...i, id: key }));
-          return array.push(...data);
-        });
-        return {
-          ...state,
-          books: array,
-          status: 'idle',
-        };
+  initialState,
+  extraReducers(builder) {
+    builder.addCase(getData.pending, (state) => {
+      state.status = 'pending';
+    })
+      .addCase(getData.fulfilled, (state, action) => {
+        state.status = 'successful';
+        state.books = action.payload;
       })
-      .addCase(getData.rejected, (state, { error }) => ({
-        ...state,
-        status: error,
-      }))
-      .addCase(addData.fulfilled, (state, { payload }) => ({
-        ...state,
-        display: { ...state.display, bookAdd: payload },
-      }))
-      .addCase(removeData.fulfilled, (state, { payload }) => ({
-        ...state,
-        display: { ...state.display, bookRemove: payload },
-      }))
-      .addCase(removeData.rejected, (state, action) => ({
-        ...state,
-        display: { ...state.display, bookRemove: action.error },
-      }));
+      .addCase;
+    // [getData.fulfilled]: (state, action) => {
+    //   const books = Object.keys(action.payload).map((item) => ({
+    //     item_id: item,
+    //     ...action.payload[item][0],
+    //   }));
+    //   return books;
+    // },
+    // [getData.rejected]: (state, action) => action.error.message,
+    // [addData.fulfilled]: (state, action) => [...state, action.payload],
+    // [addData.rejected]: (state, action) => action.error.message,
+    // [removeData.fulfilled]: (state, action) => state.filter((item) => item.item_id !== action.meta.arg),
+    // [removeData.rejected]: (state, action) => action.error.message,
   },
 });
 export const { newBook, removeBook } = bookSlice.actions;

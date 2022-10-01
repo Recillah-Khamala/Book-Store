@@ -2,23 +2,31 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addData } from '../redux/books/books';
-import Set from './Sticker';
 
 const Form = () => {
-  const { values, onChange, setValue } = Set();
   const dispatch = useDispatch();
+  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
 
-  const { title, author } = values;
-  const onSubmit = () => {
-    const plusBook = {
-      id: uuidv4(),
+  const addNewBook = () => {
+    if (!title || !category || !author) return;
+
+    const newBook = {
+      item_id: uuidv4(),
+      category,
       title,
       author,
-      categoty: 'Any',
     };
-    dispatch(addData(plusBook));
-    setValue({ title: '', author: '' });
+    dispatch(addData(newBook));
+    setAuthor('');
+    setCategory('');
+    setTitle('');
   };
+
+  const titleChange = (event) => setTitle(event.target.value);
+  const authorChange = (event) => setAuthor(event.target.value);
+  const categoryChange = (event) => setCategory(event.target.value);
 
   return (
     <form
@@ -32,22 +40,36 @@ const Form = () => {
         type="text"
         name="title"
         value={title}
-        className="w-5/12 p-2 border rounded mr-4 font-thin"
+        className="w-3/12 p-2 border rounded mr-4 font-thin"
         placeholder="Enter book title"
-        onChange={(e) => onChange(e)}
+        onChange={titleChange}
       />
       <input
         type="text"
         name="author"
         value={author}
-        className="w-4/12 p-2 border rounded mr-4 font-thin"
+        className="w-3/12 p-2 border rounded mr-4 font-thin"
         placeholder="Enter book author"
-        onChange={(e) => onChange(e)}
+        onChange={authorChange}
       />
+      <select
+        required
+        className="w-3/12 p-2 border rounded mr-4 font-thin"
+        name="categoryList"
+        value={category}
+        onChange={categoryChange}
+      >
+        <option>Select Category</option>
+        <option>Drama</option>
+        <option>Fiction</option>
+        <option>Action</option>
+        <option>Economy</option>
+        <option>Science Fiction</option>
+      </select>
       <button
         type="button"
         className="py-2 px-14 rounded-md text-sm ml-2 bg-blue-600 text-white uppercase"
-        onClick={onSubmit}
+        onClick={addNewBook}
       >
         Add book
       </button>

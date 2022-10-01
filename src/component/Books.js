@@ -5,13 +5,13 @@ import Book from './Book';
 import Form from './Form';
 
 const Books = () => {
-  const selector = useSelector((state) => state.books.display);
-  console.log(selector);
+  const { books, status } = useSelector((state) => state.books);
+  console.log(books);
   const dispatch = useDispatch();
 
-  const removeHandler = (id) => {
-    dispatch(removeBook(id));
-  };
+  // const removeHandler = (id) => {
+  //   dispatch(removeBook(id));
+  // };
 
   React.useEffect(() => {
     dispatch(getData());
@@ -20,11 +20,10 @@ const Books = () => {
   return (
     <div className="flex flex-col gap-4 py-10">
       <div className="w-full">
-        {selector.length > 0 ? (
-          selector.map((book) => {
-            const {
-              id, title, author, category,
-            } = book;
+        {status === 'successful' ? (
+          Object.entries(books).map((book) => {
+            const [id, bookDetails] = book;
+            const { title, author, category } = bookDetails[0];
             return (
               <div
                 key={id}
@@ -32,8 +31,7 @@ const Books = () => {
               >
                 <div className="flex flex-col gap-2 w-1/3">
                   <div className="flex flex-col gap-1">
-                    <span className="text-slate-300 text-base">{category}</span>
-                    <Book items={{ title, author }} />
+                    <Book items={{ title, author, category }} />
                   </div>
                   <ul className="flex gap-1 lg:gap-4 items-center w-8/12 lg:w-full">
                     <li>
