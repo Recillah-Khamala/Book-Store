@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  CircularProgressbar,
-} from 'react-circular-progressbar';
+// import {
+//   CircularProgressbar,
+// } from 'react-circular-progressbar';
 import { removeBook } from '../redux/books/books';
 import Book from './Book';
 import Form from './Form';
