@@ -1,25 +1,24 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeBook } from '../redux/books/books';
+import { getData, removeData } from '../redux/books/books';
 import Book from './Book';
 import Form from './Form';
 
 const Books = () => {
-  const selector = useSelector((state) => state.books);
+  const { books, status } = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
-  const removeHandler = (id) => {
-    dispatch(removeBook(id));
-  };
+  React.useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col gap-4 py-10">
       <div className="w-full">
-        {selector.length > 0 ? (
-          selector.map((book) => {
-            const {
-              id, title, author, category,
-            } = book;
+        {status === 'successful' ? (
+          Object.entries(books).map((book) => {
+            const [id, bookDetails] = book;
+            const { title, author, category } = bookDetails[0];
             return (
               <div
                 key={id}
@@ -27,8 +26,7 @@ const Books = () => {
               >
                 <div className="flex flex-col gap-2 w-1/3">
                   <div className="flex flex-col gap-1">
-                    <span className="text-slate-300 text-base">{category}</span>
-                    <Book items={{ title, author }} />
+                    <Book items={{ title, author, category }} />
                   </div>
                   <ul className="flex gap-1 lg:gap-4 items-center w-8/12 lg:w-full">
                     <li>
@@ -38,7 +36,7 @@ const Books = () => {
                     </li>
                     <li className="w-2 text-gray-300">|</li>
                     <li>
-                      <button type="button" className="text-sm font-thin" onClick={() => removeHandler(id)}>
+                      <button type="button" className="text-sm font-thin" onClick={() => dispatch(removeData(id))}>
                         Remove
                       </button>
                     </li>
