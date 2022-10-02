@@ -41,16 +41,16 @@ const Form = () => {
   return (
     <form
       action="#!"
-      className="w-10/12 mx-auto border-t border-t-gray-300 pt-10"
+      className="w-10/12 mx-auto border-t border-t-gray-300 pt-10 mt-12"
     >
-      <span className="text-xl font-semibold text-slate-300 block uppercase">
+      <span className="text-xl font-semibold text-slate-600 py-4 block uppercase">
         Add New Book
       </span>
       <input
         type="text"
         name="title"
         value={formData.title}
-        className="w-3/12 p-2 border rounded mr-4 font-thin"
+        className="w-5/12 p-2 border rounded mr-4 font-thin"
         placeholder="Enter book title"
         onChange={handleChange}
       />
@@ -58,13 +58,13 @@ const Form = () => {
         type="text"
         name="author"
         value={formData.author}
-        className="w-3/12 p-2 border rounded mr-4 font-thin"
+        className="w-4/12 p-2 border rounded mr-4 font-thin"
         placeholder="Enter book author"
         onChange={handleChange}
       />
       <button
         type="button"
-        className="py-2 px-14 rounded-md text-sm ml-2 bg-blue-600 text-white uppercase"
+        className="py-2 px-14 rounded-md text-sm lg:ml-2 sm:mt-4 bg-blue-600 text-white uppercase"
         onClick={() => addNewBook()}
       >
         Add book

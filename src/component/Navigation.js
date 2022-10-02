@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { BiUser } from 'react-icons/bi';
 
 const Navigation = () => (
-  <div className="flex justify-between items-center px-10 lg:px-16 py-5 shadow-sm shadow-gray-200">
+  <div className="flex justify-between items-center px-10 lg:px-16 py-5 shadow-sm shadow-gray-400">
     <div className="flex items-center gap-6 lg:gap-8">
       <span className="text-xl lg:text-4xl text-blue-600 font-semibold">Bookstore CMS</span>
       <ul className="flex gap-8">
@@ -15,7 +16,13 @@ const Navigation = () => (
       </ul>
     </div>
     <div className="rounded-full border border-blue-600">
-      soon
+      <BiUser
+        className="fill-blue-800"
+        fill="none"
+        height="24px"
+        viewBox="0 0 24 24"
+        width="24px"
+      />
     </div>
   </div>
 );

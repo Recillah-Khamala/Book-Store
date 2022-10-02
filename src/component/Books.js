@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import { getData, removeData } from '../redux/books/books';
 import Book from './Book';
 import Form from './Form';
+import 'react-circular-progressbar/dist/styles.css';
 
 const Books = () => {
   const { books, status } = useSelector((state) => state.books);
@@ -50,11 +52,14 @@ const Books = () => {
                 </div>
                 <div className="w-2/3 flex gap-5">
                   <div className="block lg:flex gap-2 justify-center items-center w-1/2">
-                    <div className="outer border rounded-full w-20 h-20 justify-center flex items-center mx-auto lg:mx-0">
-                      <div className="inner w-16 h-16 rounded-full border" />
+                    <div className="w-1/2 flex justify-center items-center">
+                      <CircularProgressbar
+                        value="86"
+                        strokeWidth={8}
+                      />
                     </div>
-                    <div className="block mx-auto w-1/2 lg:mx-0">
-                      <p className="text-base text-center lg:text-left">78%</p>
+                    <div className="block w-1/2 lg:mx-0">
+                      <p className="text-base text-center lg:text-left">86%</p>
                       <span className="text-slate-300 font-thin text-center lg:text-right">
                         completed
                       </span>
