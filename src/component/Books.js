@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import { getData, removeData } from '../redux/books/books';
 import Book from './Book';
 import Form from './Form';
+import 'react-circular-progressbar/dist/styles.css';
 
 const Books = () => {
   const { books, status } = useSelector((state) => state.books);
@@ -13,7 +15,7 @@ const Books = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-4 py-10">
+    <div className="flex flex-col gap-2 py-10">
       <div className="w-full">
         {status === 'successful' ? (
           Object.entries(books).map((book) => {
@@ -22,52 +24,56 @@ const Books = () => {
             return (
               <div
                 key={id}
-                className="w-11/12 lg:w-10/12 mx-auto bg-white shadow border p-8 flex gap-5 rounded-md mb-20"
+                className="mx-10 bg-white border p-8 flex rounded-md mb-5"
               >
-                <div className="flex flex-col gap-2 w-1/3">
+                <div className="flex flex-col w-1/2">
                   <div className="flex flex-col gap-1">
                     <Book items={{ title, author, category }} />
                   </div>
-                  <ul className="flex gap-1 lg:gap-4 items-center w-8/12 lg:w-full">
+                  <ul className="flex gap-1 lg:gap-4 items-center w-8/12 lg:w-full btns">
                     <li>
-                      <button type="button" className="text-sm font-thin">
+                      <button type="button">
                         Comments
                       </button>
                     </li>
                     <li className="w-2 text-gray-300">|</li>
                     <li>
-                      <button type="button" className="text-sm font-thin" onClick={() => dispatch(removeData(id))}>
+                      <button type="button" onClick={() => dispatch(removeData(id))}>
                         Remove
                       </button>
                     </li>
                     <li className="w-2 text-gray-300">|</li>
                     <li>
-                      <button type="button" className="text-sm font-thin">
+                      <button type="button">
                         Edit
                       </button>
                     </li>
                   </ul>
                 </div>
-                <div className="w-2/3 flex gap-5">
-                  <div className="block lg:flex gap-2 justify-center items-center w-1/2">
-                    <div className="outer border rounded-full w-20 h-20 justify-center flex items-center mx-auto lg:mx-0">
-                      <div className="inner w-16 h-16 rounded-full border" />
+                <div className="w-1/2 flex">
+                  <div className="block lg:flex justify-center gap-2 items-center w-1/4">
+                    <div className="circular flex justify-center items-center">
+                      <CircularProgressbar
+                        value="23"
+                        strokeWidth={8}
+                      />
                     </div>
-                    <div className="block mx-auto w-1/2 lg:mx-0">
-                      <p className="text-base text-center lg:text-left">78%</p>
+                    <div className="block w-1/4 lg:mx-0">
+                      <p className="percentage">23%</p>
                       <span className="text-slate-300 font-thin text-center lg:text-right">
                         completed
                       </span>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-4 b0rder-r border-gray-300 w-1/2">
-                    <span className="text-slate-300 uppercase font-thin tracking-wider">
-                      Current Chapter
+                  <div className="line-2" />
+                  <div className="flex flex-col gap-1 b0rder-r border-gray-300">
+                    <span className="current">
+                      CURRENT CHAPTER
                     </span>
                     <p className="font-thin">Chapter 7</p>
                     <button
                       type="button"
-                      className="bg-blue-700 uppercase text-xs lg:text-base font-thin p-2 text-white w-full lg:w-10/12"
+                      className="update uppercase p-1 "
                     >
                       update progress
                     </button>

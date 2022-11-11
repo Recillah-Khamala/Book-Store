@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addData } from '../redux/books/books';
+import './Form.css';
 
 const Form = () => {
   const generateCategory = () => {
@@ -41,30 +42,30 @@ const Form = () => {
   return (
     <form
       action="#!"
-      className="w-10/12 mx-auto border-t border-t-gray-300 pt-10"
+      className="w-11/12 mx-auto border-t border-t-gray-300 pt-4 mt-1"
     >
-      <span className="text-xl font-semibold text-slate-300 block uppercase">
+      <span className="formTitle block py-4 uppercase">
         Add New Book
       </span>
       <input
         type="text"
         name="title"
         value={formData.title}
-        className="w-3/12 p-2 border rounded mr-4 font-thin"
-        placeholder="Enter book title"
+        className="w-5/12 mr-8 book"
+        placeholder="Book title"
         onChange={handleChange}
       />
       <input
         type="text"
         name="author"
         value={formData.author}
-        className="w-3/12 p-2 border rounded mr-4 font-thin"
-        placeholder="Enter book author"
+        className="w-3/12  mr-8 book"
+        placeholder="Book author"
         onChange={handleChange}
       />
       <button
         type="button"
-        className="py-2 px-14 rounded-md text-sm ml-2 bg-blue-600 text-white uppercase"
+        className="w-2/12 rounded-md uppercase enter"
         onClick={() => addNewBook()}
       >
         Add book
